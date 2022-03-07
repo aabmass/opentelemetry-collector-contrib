@@ -4,7 +4,6 @@ go 1.14
 
 require (
 	github.com/DataDog/datadog-agent/pkg/trace/exportable v0.0.0-20201016145401-4646cf596b02
-	github.com/OneOfOne/xxhash v1.2.5 // indirect
 	github.com/armon/go-metrics v0.3.3 // indirect
 	github.com/aws/aws-sdk-go v1.37.30
 	github.com/gogo/googleapis v1.3.0 // indirect
@@ -21,7 +20,7 @@ require (
 	github.com/zorkian/go-datadog-api v2.29.0+incompatible // indirect
 	go.opentelemetry.io/collector v0.22.1-0.20210313012550-03904de3dd61
 	go.uber.org/zap v1.16.0
-	gopkg.in/DataDog/dd-trace-go.v1 v1.28.0
+	gopkg.in/DataDog/dd-trace-go.v1 v1.36.2
 	gopkg.in/ini.v1 v1.57.0 // indirect
 	gopkg.in/zorkian/go-datadog-api.v2 v2.30.0
 )
