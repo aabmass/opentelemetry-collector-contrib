@@ -16,9 +16,9 @@ require (
 	github.com/onsi/gomega v1.10.2 // indirect
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws v0.0.0-00010101000000-000000000000
 	github.com/pelletier/go-toml v1.8.0 // indirect
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
 	go.opentelemetry.io/collector v0.22.1-0.20210313012550-03904de3dd61
-	go.opentelemetry.io/otel v0.18.0
+	go.opentelemetry.io/otel v1.7.0
 	go.uber.org/zap v1.16.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/ini.v1 v1.57.0 // indirect
