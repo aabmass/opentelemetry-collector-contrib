@@ -1,0 +1,41 @@
+receivers:
+  googlecloudpubsub:
+    project: kjordy-test
+    subscription: projects/kjordy-test/subscriptions/staging-metrics-router-demo-sub
+    encoding: otlp_json_metric 
+    endpoint: staging-pubsub.sandbox.googleapis.com:443
+
+exporters:
+  googlecloud:
+    retry_on_failure:
+      enabled: false
+    project: otel-starter-project
+  logging:
+    loglevel: debug
+
+processors:
+  memory_limiter:
+      check_interval: 1s
+      limit_mib: 4000
+      spike_limit_mib: 800
+  batch:
+    # Google Cloud Monitoring limits batches to 200 metric points.
+    send_batch_max_size: 200
+    send_batch_size: 200
+  
+  metricstransform:
+    transforms:
+        # rename all system.cpu metrics to system.processor.*.stat
+        # instead of regular $ use double dollar $$. Because $ is treated as a special character.
+        # wrap the group name/number with braces
+      - include: ^\w+\.googleapis\.com/(.*)$$
+        match_type: regexp
+        action: update
+        new_name: metricsroutertest/$${1}
+
+service:
+  pipelines:
+    metrics:
+      receivers: [googlecloudpubsub]
+      processors: [metricstransform, memory_limiter, batch]
+      exporters: [logging, googlecloud]

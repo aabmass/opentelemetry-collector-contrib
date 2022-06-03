@@ -44,19 +44,20 @@ import (
 
 // https://cloud.google.com/pubsub/docs/reference/rpc/google.pubsub.v1#streamingpullrequest
 type pubsubReceiver struct {
-	logger             *zap.Logger
-	obsrecv            *obsreport.Receiver
-	tracesConsumer     consumer.Traces
-	metricsConsumer    consumer.Metrics
-	logsConsumer       consumer.Logs
-	userAgent          string
-	config             *Config
-	client             *pubsub.SubscriberClient
-	tracesUnmarshaler  ptrace.Unmarshaler
-	metricsUnmarshaler pmetric.Unmarshaler
-	logsUnmarshaler    plog.Unmarshaler
-	handler            *internal.StreamHandler
-	startOnce          sync.Once
+	logger                 *zap.Logger
+	obsrecv                *obsreport.Receiver
+	tracesConsumer         consumer.Traces
+	metricsConsumer        consumer.Metrics
+	logsConsumer           consumer.Logs
+	userAgent              string
+	config                 *Config
+	client                 *pubsub.SubscriberClient
+	tracesUnmarshaler      ptrace.Unmarshaler
+	metricsUnmarshaler     pmetric.Unmarshaler
+	metricsJsonUnmarshaler pmetric.Unmarshaler
+	logsUnmarshaler        plog.Unmarshaler
+	handler                *internal.StreamHandler
+	startOnce              sync.Once
 }
 
 type encoding int
@@ -65,6 +66,7 @@ const (
 	unknown         encoding = iota
 	otlpProtoTrace           = iota
 	otlpProtoMetric          = iota
+	otlpJsonMetric           = iota
 	otlpProtoLog             = iota
 	rawTextLog               = iota
 )
@@ -118,6 +120,7 @@ func (receiver *pubsubReceiver) Start(ctx context.Context, _ component.Host) err
 	})
 	receiver.tracesUnmarshaler = ptrace.NewProtoUnmarshaler()
 	receiver.metricsUnmarshaler = pmetric.NewProtoUnmarshaler()
+	receiver.metricsJsonUnmarshaler = pmetric.NewJSONUnmarshaler()
 	receiver.logsUnmarshaler = plog.NewProtoUnmarshaler()
 	return startErr
 }
@@ -176,12 +179,12 @@ func (receiver *pubsubReceiver) handleTrace(ctx context.Context, payload []byte,
 	return nil
 }
 
-func (receiver *pubsubReceiver) handleMetric(ctx context.Context, payload []byte, compression compression) error {
+func (receiver *pubsubReceiver) handleMetric(ctx context.Context, payload []byte, compression compression, unmarshaler pmetric.Unmarshaler) error {
 	payload, err := decompress(payload, compression)
 	if err != nil {
 		return err
 	}
-	otlpData, err := receiver.metricsUnmarshaler.UnmarshalMetrics(payload)
+	otlpData, err := unmarshaler.UnmarshalMetrics(payload)
 	count := otlpData.MetricCount()
 	if err != nil {
 		return err
@@ -233,6 +236,8 @@ func (receiver *pubsubReceiver) detectEncoding(attributes map[string]string) (en
 			otlpEncoding = otlpProtoTrace
 		case "otlp_proto_metric":
 			otlpEncoding = otlpProtoMetric
+		case "otlp_json_metric":
+			otlpEncoding = otlpJsonMetric
 		case "otlp_proto_log":
 			otlpEncoding = otlpProtoLog
 		case "raw_text":
@@ -274,7 +279,11 @@ func (receiver *pubsubReceiver) createReceiverHandler(ctx context.Context) error
 				}
 			case otlpProtoMetric:
 				if receiver.metricsConsumer != nil {
-					return receiver.handleMetric(ctx, payload, compression)
+					return receiver.handleMetric(ctx, payload, compression, receiver.metricsUnmarshaler)
+				}
+			case otlpJsonMetric:
+				if receiver.metricsConsumer != nil {
+					return receiver.handleMetric(ctx, payload, compression, receiver.metricsJsonUnmarshaler)
 				}
 			case otlpProtoLog:
 				if receiver.logsConsumer != nil {

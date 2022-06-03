@@ -87,6 +87,7 @@ func (config *Config) validateForMetric() error {
 	switch config.Encoding {
 	case "":
 	case "otlp_proto_metric":
+	case "otlp_json_metric":
 	default:
 		return fmt.Errorf("metric encoding %v is not supported.  supported encoding formats include [otlp_proto_metric]", config.Encoding)
 	}
