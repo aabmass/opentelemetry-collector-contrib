@@ -4,8 +4,8 @@ go 1.17
 
 require (
 	github.com/DataDog/agent-payload/v5 v5.0.22
-	github.com/DataDog/datadog-agent/pkg/otlp/model v0.38.0-rc.1
-	github.com/DataDog/datadog-agent/pkg/quantile v0.38.0-rc.1
+	github.com/DataDog/datadog-agent/pkg/otlp/model v0.41.0-rc.2
+	github.com/DataDog/datadog-agent/pkg/quantile v0.41.0-rc.2
 	github.com/DataDog/datadog-agent/pkg/trace v0.38.0-rc.1
 	github.com/DataDog/sketches-go v1.4.1
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp v0.32.2
@@ -16,12 +16,12 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/metadataproviders v0.54.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/resourcetotelemetry v0.54.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/stretchr/testify v1.7.5
+	github.com/stretchr/testify v1.8.1
 	go.opentelemetry.io/collector v0.54.0
-	go.opentelemetry.io/collector/pdata v0.54.0
-	go.opentelemetry.io/collector/semconv v0.54.0
+	go.opentelemetry.io/collector/pdata v0.63.0
+	go.opentelemetry.io/collector/semconv v0.63.0
 	go.uber.org/multierr v1.8.0
-	go.uber.org/zap v1.21.0
+	go.uber.org/zap v1.23.0
 	gopkg.in/zorkian/go-datadog-api.v2 v2.30.0
 	k8s.io/apimachinery v0.24.2
 	k8s.io/client-go v0.24.2
@@ -79,7 +79,7 @@ require (
 	github.com/secure-systems-lab/go-securesystemslib v0.3.1 // indirect
 	github.com/shirou/gopsutil/v3 v3.22.5 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/stretchr/objx v0.4.0 // indirect
+	github.com/stretchr/objx v0.5.0 // indirect
 	github.com/theupdateframework/go-tuf v0.3.0 // indirect
 	github.com/tinylib/msgp v1.1.6 // indirect
 	github.com/tklauser/go-sysconf v0.3.10 // indirect
@@ -100,8 +100,8 @@ require (
 	golang.org/x/time v0.0.0-20220411224347-583f2d630306 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20220421151946-72621c1f0bd3 // indirect
-	google.golang.org/grpc v1.47.0 // indirect
-	google.golang.org/protobuf v1.28.0 // indirect
+	google.golang.org/grpc v1.50.1 // indirect
+	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
