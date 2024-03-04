@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/scrapertest v0.54.0
-	github.com/stretchr/testify v1.7.5
+	github.com/stretchr/testify v1.9.0
 	github.com/testcontainers/testcontainers-go v0.13.0
 	go.opentelemetry.io/collector v0.54.0
 	go.opentelemetry.io/collector/pdata v0.54.0
@@ -56,7 +56,7 @@ require (
 	github.com/rogpeppe/go-internal v1.6.1 // indirect
 	github.com/rs/cors v1.8.2 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
-	github.com/stretchr/objx v0.4.0 // indirect
+	github.com/stretchr/objx v0.5.2 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.32.0 // indirect
 	go.opentelemetry.io/otel v1.7.0 // indirect
