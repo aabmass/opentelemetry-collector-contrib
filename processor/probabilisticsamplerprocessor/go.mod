@@ -1,13 +1,14 @@
 module github.com/open-telemetry/opentelemetry-collector-contrib/processor/probabilisticsamplerprocessor
 
 go 1.17
+toolchain go1.24.1
 
 require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal v0.54.0
-	github.com/stretchr/testify v1.7.5
+	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/collector v0.54.0
 	go.opentelemetry.io/collector/pdata v0.54.0
-	go.opentelemetry.io/collector/semconv v0.54.0
+	go.opentelemetry.io/collector/semconv v0.122.1
 )
 
 require (
