@@ -1,6 +1,6 @@
 module github.com/open-telemetry/opentelemetry-collector-contrib/receiver/splunkhecreceiver
 
-go 1.17
+go 1.23.0
 
 require (
 	github.com/gorilla/mux v1.8.0
@@ -8,10 +8,10 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter v0.54.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/common v0.54.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/internal/splunk v0.54.0
-	github.com/stretchr/testify v1.7.5
+	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/collector v0.54.0
 	go.opentelemetry.io/collector/pdata v0.54.0
-	go.opentelemetry.io/collector/semconv v0.54.0
+	go.opentelemetry.io/collector/semconv v0.127.0
 	go.uber.org/zap v1.21.0
 )
 
